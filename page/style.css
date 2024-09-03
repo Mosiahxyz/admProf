@@ -1,0 +1,179 @@
+*{  /*resetar o navegador*/
+
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+
+}
+
+html, body{ 
+
+    font-family: Arial, Helvetica, sans-serif; /*fontes*/
+    color: rgb(0, 0, 0); /*cor da fonte*/
+    font-size: 62.5%;
+    text-rendering: optimizeLegibility;
+
+    height: 100%;
+    width: 100%;
+  
+    overflow: hidden;
+}
+
+main{
+
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+#formulario{
+    height: 100%;
+    width: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5em;
+}
+
+#tit{
+  font-size: 4em;
+  text-transform: uppercase;
+  margin-top: 2em;
+}
+h1{
+    font-size: 3em;
+    text-transform: uppercase;
+}
+
+.background{
+  height: 25em;
+  width: 113em;
+
+  margin-top: 5em;
+  margin-left: 5em;
+  margin-bottom: -2.5em;
+}
+
+#material{
+    height: 100%;
+    width: 50%;
+
+}
+
+/*CARDS-----------------*/
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
+    font-family: arial;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+  }
+  
+  #content{
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    
+    overflow-y: auto;
+
+    gap: 2em;
+    column-gap: 5em;
+
+  }
+
+
+  .cover{
+    
+    width: 48em;
+    height: 20em;
+  }
+  
+  .card button {
+    border: none;
+    outline: 0;
+    padding: 12px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+  }
+  
+  .card button:hover {
+    opacity: 0.7;
+  }
+
+/*FORMULARIO ---------------------*/
+
+form{
+    margin: 5em;
+    height: 100%;
+}
+
+
+#contact input[type="text"], #contact input[type="email"], #contact input[type="tel"], #contact input[type="url"], #contact textarea, #contact button[type="submit"] { font:400 12px/16px "Open Sans", Helvetica, Arial, sans-serif; }
+
+#contact h4 {
+	margin:5px 0 15px;
+	display:block;
+	font-size:13px;
+}
+
+fieldset {
+	border: medium none !important;
+	margin: 0 0 10px;
+	min-width: 100%;
+	padding: 0;
+	width: 100%;
+}
+
+
+#contact input[type="text"], #contact input[type="email"], #contact input[type="tel"], #contact input[type="url"], #contact textarea {
+	width:100%;
+	border:1px solid #CCC;
+	background:#FFF;
+	margin:0 0 5px;
+	padding:10px;
+}
+
+#contact textarea {
+  resize:none;
+}
+
+#contact button[type="submit"] {
+	cursor:pointer;
+	width:100%;
+	border:none;
+	background:rgb(0, 0, 0);
+	color:#FFF;
+	margin:0 0 5px;
+	padding:10px;
+	font-size:15px;
+}
+
+#contact button[type="submit"]:hover {
+	background:rgb(76, 77, 77);
+	-webkit-transition:background 0.3s ease-in-out;
+	-moz-transition:background 0.3s ease-in-out;
+	transition:background-color 0.3s ease-in-out;
+}
+
+textarea{
+
+  font-size: 500em;
+
+}
+
+
