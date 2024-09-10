@@ -11,6 +11,8 @@ html, body{
 
     font-family: Arial, Helvetica, sans-serif; /*fontes*/
     color: rgb(0, 0, 0); /*cor da fonte*/
+
+    background-color: #F6F5F3;
     font-size: 62.5%;
     text-rendering: optimizeLegibility;
 
@@ -52,10 +54,10 @@ h1{
 
 .background{
   height: 25em;
-  width: 113em;
+  width: 60rem;
 
-  margin-top: 5em;
-  margin-left: 5em;
+  margin-top: 2em;
+  margin-left: 6em;
   margin-bottom: -2.5em;
 }
 
@@ -63,13 +65,34 @@ h1{
     height: 100%;
     width: 50%;
 
+    margin-left: 5rem;
+    margin-top: -1rem;
+
+    padding: 30px;
+
 }
+
+#enviar{
+  height: 3rem;
+  width: 10rem;
+
+  background-color: #101170;
+  color: #F6F5F3;
+
+  border-radius: 5px;
+
+  margin-top: -2rem;
+}
+
+
+
 
 /*CARDS-----------------*/
 
 .card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    max-width: 300px;
+    width: 50rem;
+    max-width: 50rem;
     margin: auto;
     text-align: center;
     font-family: arial;
@@ -77,6 +100,15 @@ h1{
     display: flex;
     flex-direction: column;
     gap: 1.5em;
+  }
+
+  .card p {
+    font-size: 14px;
+
+  }
+
+  .EDITAR {
+    color: #101170;
   }
   
   #content{
@@ -90,12 +122,13 @@ h1{
     gap: 2em;
     column-gap: 5em;
 
+
   }
 
 
   .cover{
     
-    width: 48em;
+    width: 50rem;
     height: 20em;
   }
   
@@ -104,7 +137,7 @@ h1{
     outline: 0;
     padding: 12px;
     color: white;
-    background-color: #000;
+    background-color: #101170;
     text-align: center;
     cursor: pointer;
     width: 100%;
@@ -128,12 +161,15 @@ form{
 #contact h4 {
 	margin:5px 0 15px;
 	display:block;
-	font-size:13px;
+	font-size:20px;
+
+  
 }
 
 fieldset {
 	border: medium none !important;
 	margin: 0 0 10px;
+  margin-top: 12px; 
 	min-width: 100%;
 	padding: 0;
 	width: 100%;
@@ -143,6 +179,7 @@ fieldset {
 #contact input[type="text"], #contact input[type="email"], #contact input[type="tel"], #contact input[type="url"], #contact textarea {
 	width:100%;
 	border:1px solid #CCC;
+  border-radius: 10px;
 	background:#FFF;
 	margin:0 0 5px;
 	padding:10px;
@@ -161,6 +198,7 @@ fieldset {
 	margin:0 0 5px;
 	padding:10px;
 	font-size:15px;
+
 }
 
 #contact button[type="submit"]:hover {
@@ -176,4 +214,40 @@ textarea{
 
 }
 
+/* -------------- MODAL -------------- */
 
+#modal{
+  height: 56rem;
+  width: 80rem;
+
+  margin-top: 7rem;
+  margin-left: 30rem;
+
+  padding-left: 10rem;
+
+  border: 0px;
+
+}
+
+#enviarE{
+  height: 3rem;
+  width: 10rem;
+
+  background-color: #101170;
+  color: #F6F5F3;
+
+  border-radius: 5px;
+  
+}
+
+#linkE{
+  max-width: 60rem;
+}
+
+#redacaoE{
+  max-width: 60rem;
+}
+
+#tituloE{
+  max-width: 60rem;
+}

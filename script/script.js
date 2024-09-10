@@ -1,4 +1,3 @@
-
 const div = document.querySelector("#content");
 
 const titulo = document.querySelector("#titulo");
@@ -7,94 +6,166 @@ const redacao = document.querySelector("#redacao");
 const img = document.querySelector(".background");
 const enviar = document.querySelector("#enviar");
 
+const tituloE = document.querySelector("#tituloE");
+const linkE = document.querySelector("#linkE");
+const redacaoE = document.querySelector("#redacaoE");
+
 let idtarget = 0;
+let recarregar = false;
 
-window.onload = function(){
+const modal = document.querySelector("#modal");
+const clsModal = document.querySelector("#enviarE");
 
-fetch("http://192.168.1.36:3000/modelos").then((resposta)=>{
+// Função assíncrona para carregar modelos
+async function carregarModelos() {
     
-    if(resposta.status == 200){
-        resposta.json().then((dados)=>{
+    div.innerHTML = ''; // Limpa o conteúdo atual
 
-            //dados é a lista de objetos que vem da api
-
-            dados.map((dados)=>{
+    try {
+        const resposta = await fetch("http://192.168.1.36:3000/modelos");
+        if (resposta.status === 200) {
+            const dados = await resposta.json();
+            dados.map((dados) => {
                 const card = document.createElement('div');
                 card.className = 'card';
 
-    
-                    const img = document.createElement('img');
-                    img.src = dados.imagem; // Troque para a imagem do modelo se disponível
-                    card.appendChild(img);
-                    img.className = 'cover';
+                const img = document.createElement('img');
+                img.src = dados.imagem;
+                card.appendChild(img);
+                img.className = 'cover';
 
-                    const h1 = document.createElement('h1');
-                    h1.textContent = dados.titulo; 
-                    card.appendChild(h1);
-    
-                    const description = document.createElement('p');
-                    description.textContent = dados.corpo_redacao;
-                    card.appendChild(description);
-    
-                    const button = document.createElement('button');
-                    button.textContent = 'EDITAR';
-                    button.id = dados.id;
+                const h1 = document.createElement('h1');
+                h1.textContent = dados.titulo;
+                card.appendChild(h1);
 
-                    const buttondel = document.createElement('button');
-                    buttondel.textContent = 'EXCLUIR';
-                    buttondel.id = dados.id;
-    
-                    card.append(img, h1, description, button, buttondel);
-                    div.append(card);
+                const description = document.createElement('p');
+                let texto = dados.corpo_redacao;
 
-                    //pegar a redação
-                    button.addEventListener('click', function() {
-                
-                        if(dados.imagem == null){
-                            img.src = "https://i.pinimg.com/originals/cf/6e/63/cf6e63b457348e1e534d95acd1e8341c.jpg"
-                        }
-                        else{
-                            img.src = dados.imagem
-                        }
+                // Limitar a 500 caracteres e adicionar "..."
+                if (texto.length > 500) {
+                texto = texto.substring(0, 500) + '...';
+                }
 
-                        titulo.textContent = dados.titulo;
-                        link.textContent = dados.imagem;
-                        redacao.textContent = dados.corpo_redacao;
-                        idtarget = dados.id
+                description.textContent = texto;
+                card.appendChild(description);
 
+                const button = document.createElement('button');
+                button.textContent = 'EDITAR';
+                button.className = "editar";
 
-                    });
-                    
-                    //editar a redação
-                    enviar.addEventListener("click",()=>{
+                const buttondel = document.createElement('button');
+                buttondel.textContent = 'EXCLUIR';
+                buttondel.id = dados.id;
 
-                        fetch(`http://192.168.1.36:3000/editar/${idtarget}`,{
-                            method: 'PUT',
+                buttondel.addEventListener("click", async () => {
+
+                    const resultado = confirm("Você deseja excluir esse modelo?");
+        
+                    if (resultado) {
+            
+                        idtarget = dados.id;
+
+                        const resposta = await fetch(`http://192.168.1.36:3000/deletar/${idtarget}`, {
+                            method: 'DELETE',
                             headers: {
-                                'Content-Type' : 'application/json'
-                            },            
-                            body: JSON.stringify({
-                                "imagem" : link.value,
-                                "titulo": titulo.value,
-                                "corpo_redacao": redacao.value
-                            })
-                            }).then((resposta)=>{
-                                if(resposta.status != 200){
-                                    console.log(resposta.json())
+                                'Content-Type': 'application/json'
                             }
-                        })
-                    })
-            })
+                        });
+    
+                        if (resposta.status === 200) {
+                            await carregarModelos(); // Recarrega a lista após a exclusão
+                        } else {
+                            console.log(await resposta.json());
+                        }
+            
+                    }
+                   
+                });
 
-        })
+                button.addEventListener("click", () => {
+                    modal.showModal();
+                    tituloE.value = dados.titulo;
+                    linkE.value = dados.imagem;
+                    redacaoE.value = dados.corpo_redacao;
+                    idtarget = dados.id;
+                });
 
+                modal.addEventListener("click", (event) => {
+                    if (event.target === modal) {
+                        modal.close();
+                    }
+                });
 
+                card.append(img, h1, description, button, buttondel);
+                div.append(card);
+            });
+        }
+    } catch (error) {
+        console.error("Erro ao carregar os modelos:", error);
     }
-})
 }
 
-link.on('change keyup paste click', function() {
-                
-    img.src = link;
+window.onload = carregarModelos;
 
+// Função assíncrona para enviar um novo modelo
+enviar.addEventListener("click", async () => {
+
+    const resposta = await fetch("http://192.168.1.36:3000/novomodelo", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            "imagem": link.value,
+            "titulo": titulo.value,
+            "corpo_redacao": redacao.value
+        })
+    });
+
+    if (resposta.status === 200) {
+        await carregarModelos(); // Recarrega a lista após o envio de um novo item
+    } else {
+        console.log(await resposta.json());
+    }
+    carregarModelos();
+
+});
+
+// Função assíncrona para editar o modelo
+clsModal.addEventListener("click", async () => {
+
+    const resultado = confirm("Alterar modelo existente?");
+    
+    if (resultado) {
+        const resposta = await fetch(`http://192.168.1.36:3000/editar/${idtarget}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "imagem": linkE.value,
+                "titulo": tituloE.value,
+                "corpo_redacao": redacaoE.value
+            })
+        });
+    
+        if (resposta.status === 200) {
+            await carregarModelos(); // Recarrega a lista após a edição
+        } else {
+            console.log(await resposta.json());
+        }
+    
+        carregarModelos();
+        modal.close();
+    }
+
+
+});
+
+// Atualiza a imagem ao inserir um link
+const textarea = document.querySelector("#link");
+const image = document.querySelector("#image");
+
+textarea.addEventListener("input", () => {
+    image.src = textarea.value || "../image/cover.jpg";
 });

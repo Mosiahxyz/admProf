@@ -23,9 +23,9 @@
 
         <div id="material">
 
-            <img src="../image/cover.jpg" class="background">
+            <img src="../image/cover.jpg" class="background" id="image" alt="O link enviado não é uma imagem...">
             
-            <form id="contact" action="" method="post">
+            <div id="contact" >
                 
                   <fieldset>
                     <textarea id="titulo" placeholder="Titulo do Modelo" type="text" tabindex="1" required autofocus></textarea>
@@ -38,14 +38,37 @@
                     <textarea id="redacao" name="story" rows="20" placeholder="Escreva aqui..." cols="33" required></textarea>
 
                   <fieldset>
-                    <button name="submit" type="submit" id="enviar" data-submit="...Sending">Enviar</button>
+                    <button id="enviar">CRIAR NOVO</button>
                   </fieldset>
 
-            </form>
+            </div>
                
-              </div>
+            </div>
             </form>
     </main>
+
+    <dialog id="modal">
+
+      <div id="contact" >
+                  
+          <fieldset>
+            <textarea id="tituloE" placeholder="Titulo do Modelo" type="text" tabindex="1" required autofocus></textarea>
+          </fieldset>
+
+          <fieldset>
+            <textarea id="linkE" placeholder="Link da Imagem" type="text" tabindex="2" required></textarea>
+          </fieldset>
+
+            <textarea id="redacaoE" name="story" rows="20" placeholder="Escreva aqui..." cols="33" required></textarea>
+
+          <fieldset>
+            <button id="enviarE">ENVIAR</button>
+          </fieldset>
+
+      </div>
+
+  </dialog>
+
 <script src="../script/script.js"></script>
 </body>
 </html>
